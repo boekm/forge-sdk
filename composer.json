@@ -1,0 +1,43 @@
+{
+    "name": "boekm/forge-sdk",
+    "description": "Laravel Forge PHP SDK (Unofficial)",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jelle Breuer",
+            "email": "jelle@boekm.nl",
+            "homepage": "https://boekm.es"
+        }
+    ],
+    "homepage": "https://github.com/boekm/forge-sdk",
+    "keywords": ["Laravel", "Forge", "SDK"],
+    "require": {
+        "illuminate/support": "~7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3|~4",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Boekm\\Forge\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Boekm\\Forge\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Boekm\\Forge\\ForgeServiceProvider"
+            ],
+            "aliases": {
+                "Forge": "Boekm\\Forge\\Facades\\Forge"
+            }
+        }
+    }
+}
