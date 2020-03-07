@@ -21,11 +21,11 @@ $ composer require boekm/forge-sdk
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
 
-## Testing
+<!-- ## Testing
 
 ``` bash
 $ composer test
-```
+``` -->
 
 ## Contributing
 
@@ -37,7 +37,7 @@ If you discover any security related issues, please email author email instead o
 
 ## Credits
 
-- [author name][link-author]
+- [Jelle Breuer][link-author]
 - [All Contributors][link-contributors]
 
 ## License
@@ -53,5 +53,5 @@ license. Please see the [license file](license.md) for more information.
 [link-downloads]: https://packagist.org/packages/boekm/forge-sdk
 [link-travis]: https://travis-ci.org/boekm/forge-sdk
 [link-styleci]: https://styleci.io/repos/12345678
-[link-author]: https://github.com/boekm
+[link-author]: https://github.com/jbreuer95
 [link-contributors]: ../../contributors

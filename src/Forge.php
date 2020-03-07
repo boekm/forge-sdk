@@ -4,12 +4,17 @@ namespace Boekm\Forge;
 
 use Illuminate\Support\Facades\Http;
 
+use Boekm\Forge\Actions\ManagesServers;
+
 use Boekm\Forge\Exceptions\NotFoundException;
 use Boekm\Forge\Exceptions\ValidationException;
 use Boekm\Forge\Exceptions\FailedActionException;
+use Boekm\Forge\Exceptions\TimeoutException;
 
 class Forge
 {
+    use ManagesServers;
+
     private $api;
 
     function __construct()
@@ -45,9 +50,9 @@ class Forge
         return $response->json();
     }
 
-    private function post($url, $body)
+    private function submit($type, $url, $body)
     {
-        $response = $this->api->post($url, $body);
+        $response = $this->api->$type($url, $body);
 
         if (!$response->ok()) {
             $this->handleRequestError($response);
@@ -56,23 +61,55 @@ class Forge
         return $response->json();
     }
 
-    public function servers()
+    private function post($url, $body)
     {
-        return $this->get('/servers')['servers'];
+        return $this->submit('post', $url, $body);
     }
 
-    public function server($id)
+    private function put($url, $body)
     {
-        return $this->get("/servers/{$id}")['server'];
+        return $this->submit('put', $url, $body);
     }
 
-    public function createServer($body)
+    private function patch($url, $body)
     {
-        $data = $this->post('/servers', $body);
-        $server = array_merge($data['server'], [
-            'sudo_password' => $data['sudo_password'],
-            'database_password' => $data['database_password']
-        ]);
-        return $server;
+        return $this->submit('patch', $url, $body);
+    }
+
+    private function delete($url, $body)
+    {
+        return $this->submit('delete', $url, $body);
+    }
+
+    protected function transformCollection($collection, $class, $extraData = [])
+    {
+        return array_map(function ($data) use ($class, $extraData) {
+            return new $class($data + $extraData, $this);
+        }, $collection);
+    }
+
+    /**
+     * Retry the callback or fail after x seconds.
+     *
+     * @param  integer $timeout
+     * @param  callable $callback
+     * @param  integer $sleep
+     * @return mixed
+     */
+    public function retry($timeout, $callback, $sleep = 5)
+    {
+        $start = time();
+
+        beginning: if ($output = $callback()) {
+            return $output;
+        }
+
+        if (time() - $start < $timeout) {
+            sleep($sleep);
+
+            goto beginning;
+        }
+
+        throw new TimeoutException($output);
     }
 }
