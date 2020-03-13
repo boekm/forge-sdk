@@ -2,22 +2,18 @@
 
 namespace Boekm\Forge\Actions;
 
-use Boekm\Forge\Resources\Server;
-use Illuminate\Support\Facades\Log;
-
 trait ManagesServers
 {
     public function servers()
     {
         return $this->transformCollection(
-            $this->get('servers')['servers'],
-            Server::class
+            $this->get('servers')['servers']
         );
     }
 
     public function server($id)
     {
-        return new Server($this->get("servers/$id")['server'], $this);
+        return $this->get("servers/$id")['server'];
     }
 
     public function createServer($data)
@@ -33,7 +29,7 @@ trait ManagesServers
         if (array_key_exists('provision_command', $response)) {
             $server['provision_command'] = $response['provision_command'];
         }
-        return new Server($server, $this);
+        return $server;
     }
 
     /**

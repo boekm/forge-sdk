@@ -5,6 +5,7 @@ namespace Boekm\Forge;
 use Illuminate\Support\Facades\Http;
 
 use Boekm\Forge\Actions\ManagesServers;
+use Boekm\Forge\Actions\ManagesSites;
 
 use Boekm\Forge\Exceptions\NotFoundException;
 use Boekm\Forge\Exceptions\ValidationException;
@@ -14,6 +15,7 @@ use Boekm\Forge\Exceptions\TimeoutException;
 class Forge
 {
     use ManagesServers;
+    use ManagesSites;
 
     private $api;
 
@@ -50,7 +52,7 @@ class Forge
         return $response->json();
     }
 
-    private function submit($type, $url, $body)
+    private function submit($type, $url, $body = [])
     {
         $response = $this->api->$type($url, $body);
 
@@ -76,15 +78,15 @@ class Forge
         return $this->submit('patch', $url, $body);
     }
 
-    private function delete($url, $body)
+    private function delete($url)
     {
-        return $this->submit('delete', $url, $body);
+        return $this->submit('delete', $url);
     }
 
-    protected function transformCollection($collection, $class, $extraData = [])
+    protected function transformCollection($collection, $extraData = [])
     {
-        return array_map(function ($data) use ($class, $extraData) {
-            return new $class($data + $extraData, $this);
+        return array_map(function ($data) use ($extraData) {
+            return $data + $extraData;
         }, $collection);
     }
 
