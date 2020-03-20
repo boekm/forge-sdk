@@ -1,0 +1,149 @@
+GET /api/v1/user
+
+<h1>Servers</h1>
+POST /api/v1/servers
+GET /api/v1/servers
+GET /api/v1/servers/{id}
+PUT /api/v1/servers/{id}
+PUT /api/v1/servers/{serverId}/database-password
+DELETE /api/v1/servers/{id}
+POST /api/v1/servers/{id}/reboot
+POST /api/v1/servers/{id}/revoke
+POST /api/v1/servers/{id}/reconnect
+POST /api/v1/servers/{id}/reactivate
+GET /api/v1/servers/events
+POST /api/v1/servers/{id}/mysql/reboot
+POST /api/v1/servers/{id}/mysql/stop
+POST /api/v1/servers/{id}/nginx/reboot
+POST /api/v1/servers/{id}/nginx/stop
+POST /api/v1/servers/{id}/postgres/reboot
+POST /api/v1/servers/{id}/postgres/stop
+POST /api/v1/servers/{id}/php/reboot
+POST /api/v1/servers/{id}/blackfire/install
+DELETE /api/v1/servers/{id}/blackfire/remove
+POST /api/v1/servers/{id}/papertrail/install
+DELETE /api/v1/servers/{id}/papertrail/remove
+
+<h1>Daemons</h1>
+POST /api/v1/servers/{serverId}/daemons
+GET /api/v1/servers/{serverId}/daemons
+GET /api/v1/servers/{serverId}/daemons/{daemonId}
+DELETE /api/v1/servers/{serverId}/daemons/{daemonId}
+POST /api/v1/servers/{serverId}/daemons/{daemonId}/restart
+
+<h1>Firewall Rules</h1>
+POST /api/v1/servers/{serverId}/firewall-rules
+GET /api/v1/servers/{serverId}/firewall-rules
+GET /api/v1/servers/{serverId}/firewall-rules/{ruleId}
+DELETE /api/v1/servers/{serverId}/firewall-rules/{ruleId}
+
+<h1>Scheduled Jobs</h1>
+POST /api/v1/servers/{serverId}/jobs
+GET /api/v1/servers/{serverId}/jobs
+GET /api/v1/servers/{serverId}/jobs/{jobId}
+DELETE /api/v1/servers/{serverId}/jobs/{jobId}
+
+<h1>PHP</h1>
+POST /api/v1/servers/{serverId}/php/upgrade
+POST /api/v1/servers/{serverId}/php/opcache
+DELETE /api/v1/servers/{serverId}/php/opcache
+
+<h1>MySQL Databases</h1>
+POST /api/v1/servers/{serverId}/mysql
+GET /api/v1/servers/{serverId}/mysql
+GET /api/v1/servers/{serverId}/mysql/{databaseId}
+DELETE /api/v1/servers/{serverId}/mysql/{databaseId}
+
+<h1>MySQL Database Users</h1>
+POST /api/v1/servers/{serverId}/mysql-users
+GET /api/v1/servers/{serverId}/mysql-users
+GET /api/v1/servers/{serverId}/mysql-users/{userId}
+PUT /api/v1/servers/{serverId}/mysql-users/{userId}
+DELETE /api/v1/servers/{serverId}/mysql-users/{userId}
+
+<h1>Sites</h1>
+POST /api/v1/servers/{serverId}/sites
+GET /api/v1/servers/{serverId}/sites
+GET /api/v1/servers/{serverId}/sites/{siteId}
+PUT /api/v1/servers/{serverId}/sites/{siteId}
+DELETE /api/v1/servers/{serverId}/sites/{siteId}
+PUT /api/v1/servers/{serverId}/sites/{siteId}/balancing
+POST /api/v1/servers/{serverId}/sites/{siteId}/certificates
+POST /api/v1/servers/{serverId}/sites/{siteId}/certificates
+POST /api/v1/servers/{serverId}/sites/{siteId}/certificates
+POST /api/v1/servers/{serverId}/sites/{siteId}/certificates/letsencrypt
+GET /api/v1/servers/{serverId}/sites/{siteId}/certificates
+GET /api/v1/servers/{serverId}/sites/{siteId}/certificates/{id}
+GET /api/v1/servers/{serverId}/sites/{siteId}/certificates/{id}/csr
+POST /api/v1/servers/{serverId}/sites/{siteId}/certificates/{id}/install
+POST /api/v1/servers/{serverId}/sites/{siteId}/certificates/{id}/activate
+DELETE /api/v1/servers/{serverId}/sites/{siteId}/certificates/{id}
+
+<h1>SSH Keys</h1>
+POST /api/v1/servers/{serverId}/keys
+GET /api/v1/servers/{serverId}/keys
+GET /api/v1/servers/{serverId}/keys/{keyId}
+DELETE /api/v1/servers/{serverId}/keys/{keyId}
+
+<h1>Workers</h1>
+POST /api/v1/servers/{serverId}/sites/{siteId}/workers
+GET /api/v1/servers/{serverId}/sites/{siteId}/workers
+GET /api/v1/servers/{serverId}/sites/{siteId}/workers/{id}
+DELETE /api/v1/servers/{serverId}/sites/{siteId}/workers/{id}
+POST /api/v1/servers/{serverId}/sites/{siteId}/workers/{id}/restart
+
+<h1>Redirect Rules</h1>
+POST /api/v1/servers/{serverId}/sites/{siteId}/redirect-rules
+GET /api/v1/servers/{serverId}/sites/{siteId}/redirect-rules
+GET /api/v1/servers/{serverId}/sites/{siteId}/redirect-rules/{id}
+DELETE /api/v1/servers/{serverId}/sites/{siteId}/redirect-rules/{id}
+
+<h1>Deployment</h1>
+POST /api/v1/servers/{serverId}/sites/{siteId}/deployment
+DELETE /api/v1/servers/{serverId}/sites/{siteId}/deployment
+GET /api/v1/servers/{serverId}/sites/{siteId}/deployment/script
+PUT /api/v1/servers/{serverId}/sites/{siteId}/deployment/script
+POST /api/v1/servers/{serverId}/sites/{siteId}/deployment/deploy
+POST /api/v1/servers/{serverId}/sites/{siteId}/deployment/reset
+GET /api/v1/servers/{serverId}/sites/{siteId}/deployment/log
+
+<h1>Configuration Files</h1>
+GET /api/v1/servers/{serverId}/sites/{siteId}/nginx
+PUT /api/v1/servers/{serverId}/sites/{siteId}/nginx
+GET /api/v1/servers/{serverId}/sites/{siteId}/env
+PUT /api/v1/servers/{serverId}/sites/{siteId}/env
+
+<h1>git Projects</h1>
+POST /api/v1/servers/{serverId}/sites/{siteId}/git
+PUT /api/v1/servers/{serverId}/sites/{siteId}/git
+DELETE /api/v1/servers/{serverId}/sites/{siteId}/git
+
+<h1>WordPress</h1>
+POST /api/v1/servers/{serverId}/sites/{siteId}/wordpress
+DELETE /api/v1/servers/{serverId}/sites/{siteId}/wordpress
+GET /api/v1/servers/{server_id}/sites/{site_id}/webhooks
+GET /api/v1/servers/{server_id}/sites/{site_id}/webhooks/{id}
+POST /api/v1/servers/{server_id}/sites/{site_id}/webhooks
+DELETE /api/v1/servers/{server_id}/sites/{site_id}/webhooks/{id}
+
+<h1>Recipes</h1>
+POST /api/v1/recipes
+GET /api/v1/recipes
+GET /api/v1/recipes/{recipeId}
+PUT /api/v1/recipes/{recipeId}
+DELETE /api/v1/recipes/{recipeId}
+POST /api/v1/recipes/{recipeId}/run
+
+<h1>Regions</h1>
+GET /api/v1/regions
+
+<h1>Credentials</h1>
+GET /api/v1/credentials
+
+<h1>Backups</h1>
+GET /api/v1/servers/{serverId}/backup-configs
+POST /api/v1/servers/{serverId}/backup-configs
+GET /api/v1/servers/{serverId}/backup-configs/{backupConfigurationId}
+DELETE /api/v1/servers/{serverId}/backup-configs/{backupConfigurationId}
+POST /api/v1/servers/{serverId}/backup-configs/{backupConfigurationId}/backups/{backupId}
+DELETE /api/v1/servers/{serverId}/backup-configs/{backupConfigurationId}/backups/{backupId}

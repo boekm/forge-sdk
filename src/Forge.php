@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Http;
 
 use Boekm\Forge\Actions\ManagesServers;
 use Boekm\Forge\Actions\ManagesSites;
+use Boekm\Forge\Actions\ManagesDatabases;
+use Boekm\Forge\Actions\ManagesDatabaseUsers;
+use Boekm\Forge\Actions\ManagesCertificates;
 
 use Boekm\Forge\Exceptions\NotFoundException;
 use Boekm\Forge\Exceptions\ValidationException;
@@ -16,6 +19,9 @@ class Forge
 {
     use ManagesServers;
     use ManagesSites;
+    use ManagesDatabases;
+    use ManagesDatabaseUsers;
+    use ManagesCertificates;
 
     private $api;
 
