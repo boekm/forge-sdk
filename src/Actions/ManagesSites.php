@@ -32,4 +32,24 @@ trait ManagesSites
     {
         $this->post("servers/$serverId/sites/$id/git", $data);
     }
+
+    public function siteDeploymentScript($serverId, $id)
+    {
+        return $this->get("servers/$serverId/sites/$id/deployment/script");
+    }
+
+    public function updateSiteDeploymentScript($serverId, $id, $content)
+    {
+        $this->put("servers/$serverId/sites/$id/deployment/script", compact('content'));
+    }
+
+    public function siteEnvironmentFile($serverId, $id)
+    {
+        return $this->get("servers/$serverId/sites/$id/env", true)->body();
+    }
+
+    public function updateSiteEnvironmentFile($serverId, $id, $content)
+    {
+        $this->put("servers/$serverId/sites/$id/env", compact('content'));
+    }
 }

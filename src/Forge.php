@@ -9,7 +9,8 @@ use Boekm\Forge\Actions\ManagesSites;
 use Boekm\Forge\Actions\ManagesDatabases;
 use Boekm\Forge\Actions\ManagesDatabaseUsers;
 use Boekm\Forge\Actions\ManagesCertificates;
-
+use Boekm\Forge\Actions\ManagesJobs;
+use Boekm\Forge\Actions\ManagesWorkers;
 use Boekm\Forge\Exceptions\NotFoundException;
 use Boekm\Forge\Exceptions\ValidationException;
 use Boekm\Forge\Exceptions\FailedActionException;
@@ -22,6 +23,8 @@ class Forge
     use ManagesDatabases;
     use ManagesDatabaseUsers;
     use ManagesCertificates;
+    use ManagesWorkers;
+    use ManagesJobs;
 
     private $api;
 
@@ -47,12 +50,16 @@ class Forge
         throw new \Exception((string) $response->body());
     }
 
-    private function get($url)
+    private function get($url, $raw = false)
     {
         $response = $this->api->get($url);
 
         if (!$response->ok()) {
             $this->handleRequestError($response);
+        }
+
+        if ($raw) {
+            return $response;
         }
 
         return $response->json();
@@ -69,17 +76,17 @@ class Forge
         return $response->json();
     }
 
-    private function post($url, $body)
+    private function post($url, $body = [])
     {
         return $this->submit('post', $url, $body);
     }
 
-    private function put($url, $body)
+    private function put($url, $body = [])
     {
         return $this->submit('put', $url, $body);
     }
 
-    private function patch($url, $body)
+    private function patch($url, $body = [])
     {
         return $this->submit('patch', $url, $body);
     }
@@ -94,30 +101,5 @@ class Forge
         return array_map(function ($data) use ($extraData) {
             return $data + $extraData;
         }, $collection);
-    }
-
-    /**
-     * Retry the callback or fail after x seconds.
-     *
-     * @param  integer $timeout
-     * @param  callable $callback
-     * @param  integer $sleep
-     * @return mixed
-     */
-    public function retry($timeout, $callback, $sleep = 5)
-    {
-        $start = time();
-
-        beginning: if ($output = $callback()) {
-            return $output;
-        }
-
-        if (time() - $start < $timeout) {
-            sleep($sleep);
-
-            goto beginning;
-        }
-
-        throw new TimeoutException($output);
     }
 }
