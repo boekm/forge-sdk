@@ -171,9 +171,9 @@ trait ManagesServers
      * @param  string $id
      * @return void
      */
-    public function rebootPHP($id)
+    public function rebootPHP($id, array $data)
     {
-        $this->post("servers/$id/php/reboot");
+        $this->post("servers/$id/php/reboot", $data);
     }
 
     /**
